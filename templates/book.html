@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Book Tickets - {{ movie['title'] }}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body style="background-color: #f5f5f5;">
+    <div class="container mt-5">
+        <h1 class="mb-4">Book Tickets for {{ movie['title'] }}</h1>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="alert alert-info">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        {% endwith %}
+        <form method="post">
+            <div class="form-group">
+                <label for="num_tickets">Number of Tickets:</label>
+                <input type="number" class="form-control" name="num_tickets" id="num_tickets" min="1" max="{{ movie['seats'] }}">
+            </div>
+            <button type="submit" class="btn btn-primary">Book</button>
+        </form>
+    </div>
+</body>
+</html>
